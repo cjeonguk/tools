@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Small, self-contained tools for the browser.">
+    <title>Tools | Browser workbench</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1b2630;
+        --muted: #5c6a73;
+        --paper: #f5f1e8;
+        --panel: #fffdf8;
+        --line: #c9c3b6;
+        --accent: #075d6b;
+        --accent-soft: #d8eee8;
+        --sun: #f3b74f;
+        --shadow: 5px 5px 0 var(--ink);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+      }
+
+      body {
+        background-image: radial-gradient(rgba(27, 38, 48, 0.12) 0.75px, transparent 0.75px);
+        background-size: 13px 13px;
+        color: var(--ink);
+        font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-color: var(--accent);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      a:hover {
+        color: var(--accent);
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--sun);
+        outline-offset: 4px;
+      }
+
+      .shell {
+        margin: 0 auto;
+        max-width: 1120px;
+        padding: 24px;
+      }
+
+      .masthead {
+        align-items: center;
+        border-bottom: 2px solid var(--ink);
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        padding-bottom: 18px;
+      }
+
+      .wordmark {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .hero {
+        display: grid;
+        gap: 44px;
+        grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+        padding: 72px 0 64px;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        margin: 0 0 12px;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      h1 {
+        font-size: clamp(3.2rem, 10vw, 7.5rem);
+        letter-spacing: -0.08em;
+        line-height: 0.88;
+        margin-bottom: 24px;
+        max-width: 720px;
+      }
+
+      .lede {
+        color: var(--muted);
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+        max-width: 610px;
+      }
+
+      .hero-note {
+        align-self: end;
+        background: var(--accent-soft);
+        border: 2px solid var(--ink);
+        box-shadow: var(--shadow);
+        padding: 24px;
+        transform: rotate(1.5deg);
+      }
+
+      .hero-note p:last-child {
+        margin-bottom: 0;
+      }
+
+      .hero-note strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+
+      .section-heading {
+        align-items: baseline;
+        border-top: 2px solid var(--ink);
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        padding-top: 18px;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        letter-spacing: -0.05em;
+        line-height: 1;
+        margin-bottom: 28px;
+      }
+
+      .section-heading p {
+        color: var(--muted);
+        max-width: 430px;
+      }
+
+      .catalog {
+        margin-bottom: 72px;
+      }
+
+      .empty-state {
+        align-items: center;
+        background: var(--panel);
+        border: 2px dashed var(--ink);
+        display: grid;
+        gap: 28px;
+        grid-template-columns: 120px 1fr;
+        min-height: 220px;
+        padding: 30px;
+      }
+
+      .empty-mark {
+        align-items: center;
+        background: var(--sun);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        display: flex;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 4.5rem;
+        height: 112px;
+        justify-content: center;
+        line-height: 1;
+        width: 112px;
+      }
+
+      .empty-state h3 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+
+      .empty-state p {
+        color: var(--muted);
+        margin-bottom: 0;
+        max-width: 580px;
+      }
+
+      .principles {
+        margin-bottom: 72px;
+      }
+
+      .principle-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .principle {
+        background: var(--panel);
+        border: 2px solid var(--ink);
+        min-height: 230px;
+        padding: 22px;
+      }
+
+      .principle:nth-child(2) {
+        background: #e2edf1;
+      }
+
+      .principle:nth-child(3) {
+        background: #fbe4b8;
+      }
+
+      .principle-number {
+        color: var(--accent);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1;
+      }
+
+      .principle h3 {
+        font-size: 1.1rem;
+        margin: 18px 0 8px;
+      }
+
+      .principle p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 0;
+      }
+
+      footer {
+        border-top: 2px solid var(--ink);
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+        gap: 10px 24px;
+        justify-content: space-between;
+        padding: 20px 0 28px;
+      }
+
+      @media (max-width: 700px) {
+        .shell {
+          padding: 18px;
+        }
+
+        .masthead,
+        .section-heading {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .hero {
+          gap: 34px;
+          grid-template-columns: 1fr;
+          padding: 52px 0;
+        }
+
+        .hero-note {
+          transform: none;
+        }
+
+        .empty-state {
+          align-items: start;
+          grid-template-columns: 1fr;
+        }
+
+        .principle-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a class="wordmark" href="index.html" aria-label="Tools home">Tools</a>
+        <nav class="nav-links" aria-label="Project links">
+          <a href="README.md">Read the README</a>
+          <a href="https://github.com/cjeonguk/tools">View source</a>
+        </nav>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">A browser workbench</p>
+          <h1 id="page-title">Small tools, no machinery.</h1>
+          <p class="lede">
+            A growing collection of useful, single-file HTML tools. Each one is
+            made to open quickly, work locally, and stay easy to understand.
+          </p>
+        </div>
+        <aside class="hero-note">
+          <strong>One file. One job.</strong>
+          <p>
+            No framework, build pipeline, or server required. Open a tool, do
+            the work, keep control of your data.
+          </p>
+        </aside>
+      </section>
+
+      <section class="catalog" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <h2 id="catalog-title">Tool catalog</h2>
+          <p>New browser tools will appear here as the collection grows.</p>
+        </div>
+        <div id="tool-catalog" class="empty-state">
+          <div class="empty-mark" aria-hidden="true">+</div>
+          <div>
+            <h3>The bench is clear.</h3>
+            <p>
+              The first tool has not been added yet. The repository is ready for
+              focused utilities that transform pasted text, inspect files, make
+              downloads, or explore browser APIs.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="principles" aria-labelledby="principles-title">
+        <div class="section-heading">
+          <h2 id="principles-title">How it works</h2>
+          <p>A few constraints keep this collection portable and approachable.</p>
+        </div>
+        <div class="principle-grid">
+          <article class="principle">
+            <div class="principle-number" aria-hidden="true">01</div>
+            <h3>Self-contained</h3>
+            <p>
+              HTML, CSS, and JavaScript live together so every tool can be
+              copied, reviewed, and hosted as a single page.
+            </p>
+          </article>
+          <article class="principle">
+            <div class="principle-number" aria-hidden="true">02</div>
+            <h3>Local by default</h3>
+            <p>
+              Files, clipboard data, and transformations stay in the browser
+              whenever the platform makes that possible.
+            </p>
+          </article>
+          <article class="principle">
+            <div class="principle-number" aria-hidden="true">03</div>
+            <h3>Easy to remix</h3>
+            <p>
+              Small, direct source files make proven patterns easier to adapt to
+              the next useful problem.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer>
+        <span>Built as a static collection of browser tools.</span>
+        <span>
+          Inspired by
+          <a href="https://simonwillison.net/2025/Dec/10/html-tools/">HTML tool patterns</a>
+          · <a href="LICENSE">MIT License</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
