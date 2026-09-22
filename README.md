@@ -6,8 +6,8 @@ This repository follows the single-file HTML tool approach described in Simon
 Willison's [Useful patterns for building HTML tools](https://simonwillison.net/2025/Dec/10/html-tools/).
 Each tool is deliberately easy to read, copy, host, and change.
 
-The published collection is available at
-[cjeonguk.github.io/tools](https://cjeonguk.github.io/tools/).
+The intended public address for the collection is `https://tools.cjeong.uk/`.
+GitHub Pages currently deploys the site until that custom domain is configured.
 
 ## Principles
 
@@ -63,6 +63,7 @@ guidance.
 ## Deployment
 
 GitHub Pages deploys the root of the `main` branch. No build process is required.
+The deployment will use `tools.cjeong.uk` once the custom domain is configured.
 
 ## License
 
