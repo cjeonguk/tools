@@ -59,7 +59,7 @@ collection has a concrete need for one.
 Before considering a change complete:
 
 1. Serve the repository with `python3 -m http.server 8000`.
-2. Use `playwright-cli` against `http://localhost:8000/`, not `file://`.
+2. When available, use `playwright-cli` against `http://localhost:8000/`, not `file://`.
 3. Check the primary workflow plus empty and invalid-input paths where relevant.
 4. Inspect the browser console and requests for errors or unexpected requests.
 5. Check a desktop viewport and a narrow mobile viewport for overflow, clipping,
