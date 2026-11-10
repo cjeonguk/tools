@@ -25,7 +25,7 @@ Each tool is deliberately easy to read, copy, host, and change.
 ├── index.html      # Tool collection homepage
 ├── {tool-name}.html
 ├── README.md
-└── LICENSE
+└── LICENSE.txt
 ```
 
 Tool files use lowercase `kebab-case` names at the repository root, for example
@@ -63,4 +63,4 @@ GitHub Pages deploys the root of the `main` branch. No build process is required
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE.txt)
